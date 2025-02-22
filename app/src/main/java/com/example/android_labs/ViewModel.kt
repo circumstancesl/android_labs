@@ -31,15 +31,9 @@ class ViewModel(
         call.enqueue(object : Callback<Forecast> {
             override fun onResponse(call: Call<Forecast>, response: Response<Forecast>) {
                 when {
-                    response.code() == 404 ->
-                        _toastMessage.value = "Город не найден"
-                    response.body() == null ->
-                        _toastMessage.value = "Ошибка формата данных"
-                }
-                if (response.isSuccessful) {
-                    response.body()?.list?.let {
-                        _forecastData.value = it
-                    }
+                    response.code() == 404 -> _toastMessage.value = "Город не найден"
+                    response.body() == null -> _toastMessage.value = "Ошибка формата данных"
+                    response.isSuccessful -> response.body()?.list?.let { _forecastData.value = it }
                 }
             }
 

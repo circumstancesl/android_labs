@@ -19,7 +19,7 @@ import java.io.Serializable
 class MainActivity : AppCompatActivity() {
     private lateinit var viewModel: ViewModel
     private lateinit var adapter: ForecastAdapter
-    private var forecastData: List<ForecastItem>? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -29,6 +29,7 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
         val retrofit = Retrofit.Builder()
             .baseUrl("https://api.openweathermap.org/data/2.5/")
             .addConverterFactory(GsonConverterFactory.create())
@@ -71,20 +72,6 @@ class MainActivity : AppCompatActivity() {
             if (city.isNotEmpty()) {
                 viewModel.fetchWeather(city)
             }
-        }
-    }
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        if (forecastData != null) {
-            outState.putSerializable("forecastData", forecastData as Serializable)
-        }
-    }
-
-    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-        super.onRestoreInstanceState(savedInstanceState)
-        forecastData = savedInstanceState?.getSerializable("forecastData") as? List<ForecastItem>
-        viewModel.forecastData.observe(this) { data ->
-            data?.let { adapter.submitList(it) }
         }
     }
 }
