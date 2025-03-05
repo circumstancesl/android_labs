@@ -7,19 +7,17 @@ import android.widget.EditText
 import android.widget.Toast
 import android.widget.ToggleButton
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import java.io.Serializable
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var viewModel: ViewModel
-    private lateinit var adapter: ForecastAdapter
 
+    private val viewModel: ViewModel by viewModels()
+    private lateinit var adapter: ForecastAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -30,47 +28,53 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        val retrofit = Retrofit.Builder()
-            .baseUrl("https://api.openweathermap.org/data/2.5/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-        viewModel = ViewModel(
-            retrofit.create(OpenWeatherMapService::class.java),
-            resources
-        )
-
         adapter = ForecastAdapter(ForecastDiffCallback(), viewModel)
-        findViewById<RecyclerView>(R.id.rView).apply {
-            layoutManager = LinearLayoutManager(this@MainActivity)
-            adapter = this@MainActivity.adapter
-        }
 
-        viewModel.forecastData.observe(this) { data ->
-            data?.let { adapter.submitList(it) }
-        }
-
-        viewModel.isCelsius.observe(this) { isCelsius ->
-            findViewById<ToggleButton>(R.id.toggleTempUnit).isChecked = !isCelsius
-            adapter.notifyDataSetChanged()
-        }
+        recyclerView()
+        observeList()
+        celsiumObserve()
+        observeMessage()
 
         findViewById<ToggleButton>(R.id.toggleTempUnit).setOnCheckedChangeListener { _, isChecked ->
             viewModel.toggleTemperatureUnit()
         }
 
+
+        findViewById<Button>(R.id.btnGetWeather).setOnClickListener {
+            val city = findViewById<EditText>(R.id.etCity).text.toString()
+            if (city.isNotEmpty()) {
+                viewModel.fetchWeather(city)
+            }
+        }
+
+    }
+    private fun recyclerView() {
+        findViewById<RecyclerView>(R.id.rView).apply {
+            layoutManager = LinearLayoutManager(this@MainActivity)
+            adapter = this@MainActivity.adapter
+        }
+    }
+
+    private fun observeList() {
+        viewModel.forecastData.observe(this) { data ->
+            data?.let { adapter.submitList(it) }
+        }
+    }
+
+    private fun celsiumObserve() {
+        viewModel.isCelsius.observe(this) { isCelsius ->
+            findViewById<ToggleButton>(R.id.toggleTempUnit).isChecked = !isCelsius
+            adapter.notifyDataSetChanged()
+        }
+    }
+
+    private fun observeMessage() {
         viewModel.toastMessage.observe(this) { message ->
             message?.let {
                 Toast.makeText(this, it, Toast.LENGTH_LONG).apply {
                     setGravity(Gravity.CENTER, 0, 0)
                 }.show()
                 viewModel.onToastShown()
-            }
-        }
-
-        findViewById<Button>(R.id.btnGetWeather).setOnClickListener {
-            val city = findViewById<EditText>(R.id.etCity).text.toString()
-            if (city.isNotEmpty()) {
-                viewModel.fetchWeather(city)
             }
         }
     }
