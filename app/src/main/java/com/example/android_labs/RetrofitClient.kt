@@ -6,13 +6,18 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 
 
-object RetrofitClient {
-    val RickAndMorty: RickAndMortyApi by lazy {
-        Retrofit.Builder()
-            .baseUrl("https://rickandmortyapi.com/api/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-            .create(RickAndMortyApi::class.java)
+class RetrofitClient {
+    companion object {
+        private val retrofit: Retrofit by lazy {
+            Retrofit.Builder()
+                .baseUrl("https://rickandmortyapi.com/api/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+        }
+
+        val RickAndMorty: RickAndMortyApi by lazy {
+            retrofit.create(RickAndMortyApi::class.java)
+        }
     }
 }
 
