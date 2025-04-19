@@ -5,15 +5,181 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:background="@color/white"
+    tools:context=".ui.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/buttonsColors"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
+        android:layout_margin="8dp"
+        android:orientation="horizontal"
+        android:padding="4dp"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Button
+            android:id="@+id/btnBlack"
+            android:layout_width="0dp"
+            android:layout_height="52dp"
+            android:layout_margin="2dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/black"
+            android:elevation="4dp"
+            android:stateListAnimator="@null" />
+
+        <Button
+            android:id="@+id/btnBlue"
+            android:layout_width="0dp"
+            android:layout_height="52dp"
+            android:layout_margin="2dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/blue"
+            android:elevation="4dp"
+            android:stateListAnimator="@null" />
+
+        <Button
+            android:id="@+id/btnRed"
+            android:layout_width="0dp"
+            android:layout_height="52dp"
+            android:layout_margin="2dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/red"
+            android:elevation="4dp"
+            android:stateListAnimator="@null" />
+
+        <Button
+            android:id="@+id/btnYellow"
+            android:layout_width="0dp"
+            android:layout_height="52dp"
+            android:layout_margin="2dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/yellow"
+            android:elevation="4dp"
+            android:stateListAnimator="@null" />
+
+        <Button
+            android:id="@+id/btnGreen"
+            android:layout_width="0dp"
+            android:layout_height="52dp"
+            android:layout_margin="2dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/green"
+            android:elevation="4dp"
+            android:stateListAnimator="@null" />
+
+        <Button
+            android:id="@+id/btnViolet"
+            android:layout_width="0dp"
+            android:layout_height="52dp"
+            android:layout_margin="2dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/violet"
+            android:elevation="4dp"
+            android:stateListAnimator="@null" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/buttonsInstruments"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/buttonsColors">
+
+        <Button
+            android:id="@+id/btnLoadImage"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginEnd="4dp"
+            android:layout_weight="1"
+            android:background="@drawable/rounded_button_outline"
+            android:text="Загрузить"
+            android:textAllCaps="false"
+            android:textColor="@color/blue" />
+
+        <Button
+            android:id="@+id/btnSave"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            android:layout_weight="1"
+            android:background="@drawable/rounded_button_outline"
+            android:text="Сохранить"
+            android:textAllCaps="false"
+            android:textColor="@color/green" />
+
+        <Button
+            android:id="@+id/btnClear"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="4dp"
+            android:layout_weight="1"
+            android:background="@drawable/rounded_button_outline"
+            android:text="Очистить"
+            android:textAllCaps="false"
+            android:textColor="@color/red" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/seekBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:orientation="horizontal"
+        android:paddingVertical="8dp"
+        app:layout_constraintTop_toBottomOf="@id/buttonsInstruments">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Размер кисти:"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <SeekBar
+            android:id="@+id/seekBarBrushSize"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="1"
+            android:max="50"
+            android:progress="10"
+            android:progressTint="@color/blue" />
+
+        <TextView
+            android:id="@+id/tvBrushSizeValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="10"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="16dp"
+        android:background="@drawable/surface_background"
+        android:elevation="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/seekBar">
+
+        <com.example.android_labs.ui.DrawingView
+            android:id="@+id/drawingView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="4dp" />
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
