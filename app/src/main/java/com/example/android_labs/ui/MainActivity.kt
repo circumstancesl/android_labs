@@ -1,4 +1,4 @@
-package com.example.android_labs
+package com.example.android_labs.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -6,6 +6,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupActionBarWithNavController
+import com.example.android_labs.R
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

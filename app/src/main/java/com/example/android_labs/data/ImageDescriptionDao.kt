@@ -1,8 +1,9 @@
-package com.example.android_labs
+package com.example.android_labs.data
 
 import androidx.room.Dao
 import androidx.room.Query
 import androidx.room.Upsert
+import com.example.android_labs.data.ImageDescription
 
 @Dao
 interface ImageDescriptionDao {

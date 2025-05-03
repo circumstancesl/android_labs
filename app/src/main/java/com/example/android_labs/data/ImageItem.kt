@@ -1,4 +1,4 @@
-package com.example.android_labs
+package com.example.android_labs.data
 
 import android.net.Uri
 

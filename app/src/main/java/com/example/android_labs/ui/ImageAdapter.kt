@@ -1,4 +1,4 @@
-package com.example.android_labs
+package com.example.android_labs.ui
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,17 +7,24 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.android_labs.R
+import com.example.android_labs.data.ImageItem
 
-class ImagesAdapter(
+class ImageAdapter(
     private val onLongClick: (Int) -> Unit,
     private val onClick: (ImageItem) -> Unit
-) : RecyclerView.Adapter<ImagesAdapter.ViewHolder>() {
+) :
+    RecyclerView.Adapter<ImageAdapter.ViewHolder>() {
+
 
     private var items: List<ImageItem> = emptyList()
+        set(value) {
+            field = value.toList()
+            notifyDataSetChanged()
+        }
 
     fun updateItems(newItems: List<ImageItem>) {
-        items = newItems
-        notifyDataSetChanged()
+        items = newItems.toList()
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -36,7 +43,9 @@ class ImagesAdapter(
             .into(holder.imageView)
 
         holder.descriptionView.text = item.description
-        holder.itemView.setOnClickListener { onClick(item) }
+        holder.itemView.setOnClickListener {
+            onClick(item)
+        }
         holder.itemView.setOnLongClickListener {
             onLongClick(position)
             true

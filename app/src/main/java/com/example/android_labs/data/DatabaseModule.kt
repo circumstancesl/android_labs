@@ -1,4 +1,4 @@
-package com.example.android_labs
+package com.example.android_labs.data
 
 import android.app.Application
 import android.content.Context
@@ -21,9 +21,10 @@ class GalleryDatabaseModule {
 
     }
     @Provides
-    fun provideDescriptionDAO(database: AppDatabase): ImageDescriptionDao{
+    fun provideDescriptionDAO(database: AppDatabase): ImageDescriptionDao {
         return database.imageDescriptionDao()
     }
 }
+
 @HiltAndroidApp
 class GalleryApp : Application()
