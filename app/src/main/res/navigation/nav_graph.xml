@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/galleryFragment">
+
+    <fragment
+        android:id="@+id/galleryFragment"
+        android:name="com.example.android_labs.GalleryFragment"
+        android:label="Галерея"
+        tools:layout="@layout/fragment_gallery">
+
+        <action
+            android:id="@+id/action_gallery_to_detail"
+            app:destination="@id/imageDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/imageDetailFragment"
+        android:name="com.example.android_labs.ImageDetailFragment"
+        android:label="Детали изображения"
+        tools:layout="@layout/fragment_image_detail">
+
+        <argument
+            android:name="mediaUri"
+            app:argType="string" />
+
+        <argument
+            android:name="description"
+            app:argType="string" />
+
+        <argument
+            android:name="mediaId"
+            app:argType="long" />
+
+        <argument
+            android:name="isEditMode"
+            android:defaultValue="false"
+            app:argType="boolean" />
+    </fragment>
+</navigation>
