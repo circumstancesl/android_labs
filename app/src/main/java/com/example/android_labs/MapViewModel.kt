@@ -37,6 +37,10 @@ class MapViewModel(application: Application) : AndroidViewModel(application) {
     private var endMarker: Marker? = null
     private var routePolyline: Polyline? = null
 
+    private val osrmApi: OsrmApi by lazy {
+        RetrofitProvider.getInstance().create(OsrmApi::class.java)
+    }
+
     private val _toastMessage = MutableLiveData<String>()
     val toastMessage: LiveData<String> = _toastMessage
 
@@ -119,12 +123,11 @@ class MapViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     private fun drawRoute(start: LatLng, end: LatLng) {
-        val api = RetrofitProvider.getInstance().create(OsrmApi::class.java)
         viewModelScope.launch {
             try {
                 _isLoading.value = true
                 val response = withContext(Dispatchers.IO) {
-                    api.getRoute(
+                    osrmApi.getRoute( // Используем заранее созданный экземпляр API
                         start = "${start.longitude},${start.latitude}",
                         end = "${end.longitude},${end.latitude}"
                     )
