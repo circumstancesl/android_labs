@@ -127,7 +127,7 @@ class MapViewModel(application: Application) : AndroidViewModel(application) {
             try {
                 _isLoading.value = true
                 val response = withContext(Dispatchers.IO) {
-                    osrmApi.getRoute( // Используем заранее созданный экземпляр API
+                    osrmApi.getRoute(
                         start = "${start.longitude},${start.latitude}",
                         end = "${end.longitude},${end.latitude}"
                     )
