@@ -7,6 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.LayoutRes
 import androidx.recyclerview.widget.RecyclerView
+import com.example.android_labs.data.models.Character
 
 class CharacterAdapter : RecyclerView.Adapter<BaseCharacterViewHolder>() {
 

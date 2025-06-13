@@ -4,11 +4,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.android_labs.data.api.RetrofitClient
+import com.example.android_labs.data.api.RickAndMortyApi
+import com.example.android_labs.data.models.Character
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import java.io.IOException
 
-class ViewModel(
+class MainViewModel(
     private val service: RickAndMortyApi = RetrofitClient.RickAndMorty
 ) : ViewModel() {
     private val _characterData = MutableLiveData<List<Character>>()

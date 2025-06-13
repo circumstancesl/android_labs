@@ -1,10 +1,7 @@
-package com.example.android_labs
+package com.example.android_labs.data.api
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.GET
-import retrofit2.http.Path
-
 
 class RetrofitClient {
     companion object {
@@ -19,9 +16,4 @@ class RetrofitClient {
             retrofit.create(RickAndMortyApi::class.java)
         }
     }
-}
-
-interface RickAndMortyApi {
-    @GET("character/{id}")
-    suspend fun getCharacter(@Path("id") id: Int): Character
 }

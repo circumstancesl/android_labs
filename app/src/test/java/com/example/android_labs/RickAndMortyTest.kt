@@ -2,6 +2,8 @@ package com.example.android_labs
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.viewModelScope
+import com.example.android_labs.data.api.RickAndMortyApi
+import com.example.android_labs.data.models.Character
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
@@ -32,13 +34,13 @@ class ViewModelTest {
 
     private val testDispatcher = TestCoroutineDispatcher()
     private lateinit var api: RickAndMortyApi
-    private lateinit var viewModel: ViewModel
+    private lateinit var viewModel: MainViewModel
 
     @Before
     fun setup() {
         Dispatchers.setMain(testDispatcher)
         api = mockk()
-        viewModel = ViewModel(api)
+        viewModel = MainViewModel(api)
     }
 
     @After
@@ -49,7 +51,7 @@ class ViewModelTest {
 
     // успешное получение данных из api
     @Test
-    fun fetchCharactersSuccess() = runTest {
+    fun mainActivityViewModel_fetchCharactersNetwork_IsError() = runTest {
         val mockCharacter1 = mockk<Character>()
         val mockCharacter2 = mockk<Character>()
         coEvery { api.getCharacter(1) } returns mockCharacter1
@@ -64,7 +66,7 @@ class ViewModelTest {
 
     // обработка ошибок при сетевых сбоях
     @Test
-    fun fetchCharactersNetworkError() = runTest {
+    fun mainActivityViewModel_fetchCharactersNetwork_IsSuccess() = runTest {
         coEvery { api.getCharacter(1) } throws IOException("Network error")
 
         viewModel.fetchCharacters(listOf(1, 2))
@@ -75,7 +77,7 @@ class ViewModelTest {
 
     // корректное обновление UI
     @Test
-    fun fetchCharactersUpdatesUI() = runTest {
+    fun mainActivityViewModel_fetchCharactersUI_IsSuccess() = runTest {
         val mockCharacter = mockk<Character>()
         coEvery { api.getCharacter(any()) } returns mockCharacter
 
@@ -87,7 +89,7 @@ class ViewModelTest {
 
     // обработка http
     @Test
-    fun fetchCharactersHttpError() = runTest {
+    fun mainActivityViewModel_fetchCharactersHTTP_IsError() = runTest {
         coEvery { api.getCharacter(1) } throws HttpException(
             Response.error<Any>(404, ResponseBody.create(null, ""))
         )
@@ -99,7 +101,7 @@ class ViewModelTest {
 
     // жизненный цикл корутин
     @Test
-    fun cancelCoroutine() = runTest {
+    fun mainActivityViewModel_cancelJob_IsSuccess() = runTest {
         val job = viewModel.viewModelScope.launch {
             viewModel.fetchCharacters(listOf(1, 100))
         }
