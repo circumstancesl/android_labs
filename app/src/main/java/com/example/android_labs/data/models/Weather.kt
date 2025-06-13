@@ -1,4 +1,4 @@
-package com.example.android_labs
+package com.example.android_labs.data.models
 
 data class Weather(
     val id: Int,

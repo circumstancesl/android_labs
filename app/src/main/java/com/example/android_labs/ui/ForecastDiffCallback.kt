@@ -1,6 +1,7 @@
-package com.example.android_labs
+package com.example.android_labs.ui
 
 import androidx.recyclerview.widget.DiffUtil
+import com.example.android_labs.data.models.ForecastItem
 
 class ForecastDiffCallback : DiffUtil.ItemCallback<ForecastItem>() {
     override fun areItemsTheSame(oldItem: ForecastItem, newItem: ForecastItem): Boolean {

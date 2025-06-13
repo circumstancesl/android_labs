@@ -1,22 +1,10 @@
-package com.example.android_labs
+package com.example.android_labs.data.api
 
+import com.example.android_labs.BuildConfig
+import com.example.android_labs.data.models.Forecast
 import retrofit2.Call
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
-
-object RetrofitClient {
-
-    val weatherService: OpenWeatherMapService by lazy {
-
-        Retrofit.Builder()
-            .baseUrl("https://api.openweathermap.org/data/2.5/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-            .create(OpenWeatherMapService::class.java)
-    }
-}
 
 interface OpenWeatherMapService {
     companion object {

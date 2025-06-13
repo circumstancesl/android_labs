@@ -1,8 +1,12 @@
-package com.example.android_labs
+package com.example.android_labs.ui
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.android_labs.data.api.OpenWeatherMapService
+import com.example.android_labs.data.api.RetrofitClient
+import com.example.android_labs.data.models.Forecast
+import com.example.android_labs.data.models.ForecastItem
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

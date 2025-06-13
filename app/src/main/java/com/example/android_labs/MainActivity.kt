@@ -13,6 +13,9 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.android_labs.ui.ForecastAdapter
+import com.example.android_labs.ui.ForecastDiffCallback
+import com.example.android_labs.ui.ViewModel
 
 class MainActivity : AppCompatActivity() {
 
